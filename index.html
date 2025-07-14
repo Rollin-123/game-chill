@@ -6,7 +6,8 @@
     <title>Game & Chill - Édition Biélorussie</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="./style.css" type="text/css">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <link rel="stylesheet" href="merci.html">
     
 </head>
 <body>
@@ -174,7 +175,14 @@
         <section id="contact">
             <h2 class="section-title">INSCRIPTION</h2>
             <div id="form-message" class="form-message"></div>
-            <form id="reservation-form" class="contact-form">
+            <form id="reservation-form" class="contact-form" action="https://formsubmit.co/rollinloictianga@gmail.com" method="POST">
+                <!-- Ajout des champs cachés pour personnaliser l'email -->
+                <input type="hidden" name="_next" value="http://127.0.0.1:5500/porjet/merci.html"> <!-- Page de remerciement -->
+                <input type="hidden" name="_subject" value="Nouvelle réservation Game & Chill">
+                <input type="hidden" name="_template" value="table">
+                <!-- <input type="hidden" name="_next" value="https://rollin-123.github.io/game-chill/merci.html"> Page de remerciement -->
+                <input type="hidden" name="_captcha" value="false">
+                
                 <div class="form-group">
                     <label for="name">Nom complet</label>
                     <input type="text" id="name" name="name" placeholder="Votre nom" required>
@@ -207,9 +215,9 @@
     <!-- Footer -->
     <footer>
         <div class="social-links">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
-            <a href="#"><i class="fab fa-telegram"></i></a>
+            <a href=""><i class="fab fa-instagram"></i></a>
+            <a href="tel:+375257401026"><i class="fab fa-whatsapp"></i></a>
+            <a href="@Workby23"><i class="fab fa-telegram"></i></a>
         </div>
         <p class="copyright">© 2023 Game & Chill - Première édition en Biélorussie</p>
         <p class="copyright">Événement dédié aux étudiants africains</p>

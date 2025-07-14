@@ -36,38 +36,68 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(section);
     });
 })
-
-//  script pour le formulaire
-document.getElementById('reservation-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const form = e.target;
-    const formData = new FormData(form);
-    const formMessage = document.getElementById('form-message');
-    
-    // Afficher un message de chargement
-    formMessage.style.display = 'block';
-    formMessage.className = 'form-message';
-    formMessage.textContent = 'Envoi en cours...';
-    
-    // Utilisation de FormSubmit.co pour envoyer le formulaire
-    fetch('https://formsubmit.co/ajax/rollinloictianga@gmail.com', {
-        method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(Object.fromEntries(formData))
-    })
-    .then(response => response.json())
-    .then(data => {
-        formMessage.className = 'form-message success';
-        formMessage.textContent = 'Inscription réussie ! Nous vous contacterons bientôt.';
-        form.reset();
-    })
-    .catch(error => {
-        formMessage.className = 'form-message error';
-        formMessage.textContent = 'Une erreur est survenue. Veuillez réessayer ou nous contacter directement.';
-        console.error('Error:', error);
+    // Script pour gérer l'envoi du formulaire
+    document.getElementById('reservation-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const form = e.target;
+        const formData = new FormData(form);
+        const formMessage = document.getElementById('form-message');
+        
+        // Afficher un message de chargement
+        formMessage.textContent = 'Envoi en cours...';
+        formMessage.style.color = '#ff8906';
+        
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                formMessage.textContent = 'Réservation envoyée avec succès! Nous vous contacterons bientôt.';
+                formMessage.style.color = '#2cb67d';
+                form.reset();
+            } else {
+                throw new Error('Erreur lors de l\'envoi');
+            }
+        })
+        .catch(error => {
+            formMessage.textContent = 'Une erreur est survenue. Veuillez réessayer ou nous contacter directement.';
+            formMessage.style.color = '#f25f4c';
+            console.error('Error:', error);
+        });
     });
-});
+    document.getElementById('reservation-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Envoyer les données à FormSubmit
+        fetch('https://formsubmit.co/ajax/rollinloictianga@gmail.com', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                gender: document.getElementById('gender').value,
+                message: document.getElementById('message').value,
+                _subject: "Nouvelle réservation Game & Chill",
+                _template: "table"
+            })
+        })
+        .then(response => {
+            if(response.ok) {
+                // Redirection MANUELLE vers merci.html
+                window.location.href = "merci.html";
+            } else {
+                alert("Erreur lors de l'envoi, veuillez réessayer");
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
